@@ -1,42 +1,31 @@
-FROM ubuntu:20.04
+FROM nvidia/cuda:10.2-cudnn8-runtime-ubuntu18.04
 
+WORKDIR /home/usr/
 
-WORKDIR /home/root/
-
-RUN apt-get update  \
-    && apt-get upgrade -y \
-    && apt-get install -y \
+RUN apt-get update -y \
+    && apt-get install -y wget \
     && apt-get -y install curl \
-    && curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.03.1-ce.tgz \
-    && tar --strip-components=1 -xvzf docker-17.03.1-ce.tgz -C /usr/local/bin \
-    && apt-get -y install gcc mono-mcs\
     && apt-get -y install sudo \
-    && apt-get -y install software-properties-common  \
-    && add-apt-repository ppa:deadsnakes/ppa \
-    && apt-get -y install python3.7 \
-    && apt-get -y install python3-pip python3 python3-setuptools \
-    && apt-get -y install libpython3.7-dev \
-    && apt-get -y install python3.7-distutils \
-    && apt-get -y install python3-apt \
-    && apt-get -y install python3-pip \
-    && apt-get -y install unzip 
-    # 
+    && apt-get install -y libhdf5-dev libxml2-dev libxslt1-dev zlib1g-dev \
+    && apt-get install -y unzip  
 
-RUN useradd -m dev && echo "dev:dev" | chpasswd && adduser dev sudo
+# Install Chrome
+#RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+#RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+#RUN apt-get update && apt-get install -y google-chrome-stable  
+    
+# Install Docker
+RUN  curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.03.1-ce.tgz \
+    && tar --strip-components=1 -xvzf docker-17.03.1-ce.tgz -C /usr/local/bin 
+  
+COPY requirements.txt /home/usr/requirements.txt
+COPY . /home/usr/
 
+ADD . /home/usr/
 
-COPY requirements.txt /home/root/requirements.txt
-COPY . /home/root/
-
-ADD . /home/root/
-
-RUN python3.7 -m pip install -r requirements.txt
-RUN python3.7 -m pip install -e .
-
-
-USER dev
-CMD /bin/bash
+CMD /bin/bash 
 
 # docker run -v /var/run/docker.sock:/var/run/docker.sock -ti docker
 # docker build . -t lid-ds
 # docker run -t -i --rm -v /var/run/docker.sock:/var/run/docker.sock lid-ds bash
+# sudo chmod -R 777 folder_name

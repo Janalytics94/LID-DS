@@ -22,7 +22,7 @@ filesplit~=3.0.2
 tqdm==4.62.3
 nest-asyncio==1.5.1
 gensim==4.1.2
-torch
+torch==1.9.1
 treelib==1.6.1
 pyshark==0.4.3
 networkx==2.6.3

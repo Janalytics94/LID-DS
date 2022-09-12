@@ -12,9 +12,9 @@ sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 curl -s https://s3.amazonaws.com/download.draios.com/stable/install-sysdig | sudo bash
 su - $(whoami) -c "curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | sudo bash"
-echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> /home/$(whoami)/.bashrc
-echo 'eval "$(pyenv init -)"' >> /home/$(whoami)/.bashrc
-echo 'eval "$(pyenv virtualenv-init -)"' >> /home/$(whoami)/.bashrc
+echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> /root/.bashrc
+echo 'eval "$(pyenv init -)"' >> /root/.bashrc
+echo 'eval "$(pyenv virtualenv-init -)"' >> /root/.bashrc
 curl -s https://s3.amazonaws.com/download.draios.com/stable/install-sysdig | sudo bash
 
 unzip lid_ds/sim/datasets/Archiv.zip -d lid_ds/sim/datasets/
