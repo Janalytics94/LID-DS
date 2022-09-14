@@ -17,7 +17,7 @@ RUN apt-get update -y \
 # Install Docker
 RUN  curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.03.1-ce.tgz \
     && tar --strip-components=1 -xvzf docker-17.03.1-ce.tgz -C /usr/local/bin 
-  
+
 COPY requirements.txt /home/usr/requirements.txt
 COPY . /home/usr/
 
@@ -27,5 +27,8 @@ CMD /bin/bash
 
 # docker run -v /var/run/docker.sock:/var/run/docker.sock -ti docker
 # docker build . -t lid-ds
-# docker run -t -i --rm -v /var/run/docker.sock:/var/run/docker.sock lid-ds bash
-# sudo chmod -R 777 folder_name
+# docker run -t -i -v /var/run/docker.sock:/var/run/docker.sock lid-ds_docker_sock bash
+
+# Error pytables
+# apt-get build-dep python-tables
+# HDF5_DIR=/usr/lib/x86_64-linux-gnu/hdf5/serial/ && pip install tables

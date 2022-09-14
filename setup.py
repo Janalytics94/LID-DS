@@ -44,7 +44,8 @@ setup(name='lid_ds',
           'numpy',
           'pexpect',
           'terminaltables',
-          'docopt'
+          'docopt',
+          'pypcapkit'
       ],
       entry_points={
         'console_scripts': ['lid_ds_analysis=lid_ds.analysis.main:main'],
